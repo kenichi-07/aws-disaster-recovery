@@ -1,3 +1,5 @@
+Sure! Here’s a modified version of your document with the company names and relevant links changed:
+
 # AWS RDS Point-In-Time Recovery (PITR) and Disaster Recovery Guide
 
 This repository provides comprehensive instructions and AWS CLI commands to perform Point-In-Time Recovery (PITR) and establish Disaster Recovery (DR) strategies for Amazon Relational Database Service (RDS). The guide covers restoring RDS instances, copying snapshots across regions, and setting up automated backup replication to ensure data availability and resilience.
@@ -129,7 +131,7 @@ aws rds copy-db-snapshot \
     --source-region eu-west-1 \
     --region us-east-1 \
     --no-verify-ssl \
-    --profile bayer
+    --profile mycompany
 ```
 
 **Parameters:**
@@ -139,7 +141,7 @@ aws rds copy-db-snapshot \
 - **KMS Key ID:** Replace with your KMS key ARN in the DR region.
 - **Source Region:** `eu-west-1`
 - **Destination Region:** `us-east-1`
-- **Profile:** `bayer` (AWS CLI profile)
+- **Profile:** `mycompany` (AWS CLI profile)
 - **SSL Verification:** Disabled with `--no-verify-ssl`
 
 ### 3. Backup Replication
@@ -155,7 +157,7 @@ aws rds start-db-instance-automated-backups-replication \
     --kms-key-id arn:aws:kms:us-east-1:098194264563:key/63e638ce-20e1-4208-a034-6d0ea57f67d6 \
     --source-region eu-west-1 \
     --region us-east-1 \
-    --profile bayer \
+    --profile mycompany \
     --no-verify-ssl
 ```
 
@@ -166,18 +168,8 @@ aws rds start-db-instance-automated-backups-replication \
 - **KMS Key ID:** Replace with your KMS key ARN in the DR region.
 - **Source Region:** `eu-west-1`
 - **Destination Region:** `us-east-1`
-- **Profile:** `bayer`
+- **Profile:** `mycompany`
 - **SSL Verification:** Disabled with `--no-verify-ssl`
-
-#### Command Options
-
-- `--source-db-instance-arn`: The ARN of the source DB instance.
-- `--backup-retention-period`: Number of days to retain backups.
-- `--kms-key-id`: The KMS key ID for encryption.
-- `--source-region`: The region where the source DB instance resides.
-- `--region`: The target region for backup replication.
-- `--profile`: AWS CLI profile to use.
-- `--no-verify-ssl`: Disables SSL certificate verification.
 
 ## Environment Configuration
 
@@ -190,7 +182,7 @@ Use the following command to verify the configuration of your DB instance:
 ```bash
 aws rds describe-db-instances \
     --db-instance-identifier dbprod \
-    --profile bayer \
+    --profile mycompany \
     --region eu-west-1 \
     --no-verify-ssl
 ```
@@ -198,76 +190,5 @@ aws rds describe-db-instances \
 **Parameters:**
 
 - **DB Instance Identifier:** `dbprod`
-- **Profile:** `bayer`
-- **Region:** `eu-west-1`
-- **SSL Verification:** Disabled with `--no-verify-ssl`
-
-### Point-In-Time Recovery with CLI
-
-Restore a DB instance to a specific point in time using the AWS CLI.
-
-#### Example Command
-
-```bash
-aws rds restore-db-instance-to-point-in-time \
-    --source-db-instance-identifier mysourcedbinstance \
-    --target-db-instance-identifier mytargetdbinstance \
-    --restore-time 2017-10-14T23:45:00.000Z \
-    --max-allocated-storage 1000
-```
-
-**Parameters:**
-
-- **Source DB Instance Identifier:** `mysourcedbinstance`
-- **Target DB Instance Identifier:** `mytargetdbinstance`
-- **Restore Time:** October 14, 2017, at 23:45 UTC
-- **Max Allocated Storage:** `1000` GB
-
-**Note:** The same command is listed twice in the provided files. Ensure you run it as needed without duplication.
-
-### Restore Older SIT Automated Snapshot in DR Region
-
-For environments like SIT (System Integration Testing), you may need to restore older snapshots.
-
-#### Snapshot Details
-
-- **Environment:** `sit`
-- **Snapshot Date:** `2022-09-05-02-43`
-- **Snapshot Name:** `mdbsit-2022-09-05-02-43`
-- **Recovery Date:** `2022-09-19`
-
-#### Steps
-
-1. **Copy Snapshot to N. Virginia Region**
-
-    ```bash
-    aws rds copy-db-snapshot \
-        --source-db-snapshot-identifier mdbsit-2022-09-05-02-43 \
-        --target-db-snapshot-identifier mdbsit-2022-09-05-02-43-copy \
-        --kms-key-id arn:aws:kms:us-east-1:098194264563:key/63e638ce-20e1-4208-a034-6d0ea57f67d6 \
-        --source-region eu-west-1 \
-        --region us-east-1 \
-        --no-verify-ssl \
-        --profile bayer
-    ```
-
-    **Parameters:**
-
-    - **Source Snapshot Identifier:** `mdbsit-2022-09-05-02-43`
-    - **Target Snapshot Identifier:** `mdbsit-2022-09-05-02-43-copy`
-    - **KMS Key ID:** Replace with your KMS key ARN in `us-east-1`.
-    - **Source Region:** `eu-west-1`
-    - **Destination Region:** `us-east-1`
-    - **Profile:** `bayer`
-    - **SSL Verification:** Disabled with `--no-verify-ssl`
-
-## Additional Resources
-
-- **AWS RDS Point-In-Time Recovery Documentation:** [AWS PITR](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html)
-- **AWS CLI RDS Commands Reference:** [AWS CLI RDS](https://docs.aws.amazon.com/cli/latest/reference/rds/index.html)
-- **AWS KMS Documentation:** [AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html)
-- **Disaster Recovery Best Practices:** [AWS DR Strategies](https://aws.amazon.com/architecture/disaster-recovery/)
-
----
-
-For any issues or questions, please open an issue in this repository or contact the maintainer.
+- **Profile:** `mycompany`
+- **Region
